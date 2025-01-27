@@ -1,4 +1,5 @@
 import { BalldontlieAPI } from "@balldontlie/sdk";
+import Link from "next/link";
 
 export default async function Teams() {
   const api = new BalldontlieAPI({
@@ -7,14 +8,16 @@ export default async function Teams() {
 
   const teams = await api.nba.getTeams();
 
-  console.log("This is my teams log:", teams.data);
+  console.log("This is my teams log:", teams);
   return (
-    <div>
-      {teams.data.map((team) => (
-        <div key={team.id}>
-          <p>{team.full_name}</p>
-        </div>
-      ))}
-    </div>
+    <Link href={`/teams/${teams.id}`}>
+      <div>
+        {teams.data.map((team) => (
+          <div key={team.id}>
+            {team.id <= 30 ? <p>{team.full_name}</p> : <p></p>}
+          </div>
+        ))}
+      </div>
+    </Link>
   );
 }

@@ -7,7 +7,7 @@ export default async function Games() {
 
  
   // Get season averages
-  const games = await api.nba.getGames();
+  const games = await api.nba.getGames(2024);
 
   console.log("This is my games log:",games.data);
   return <></>;
