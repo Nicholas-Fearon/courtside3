@@ -7,11 +7,21 @@ export default async function Players() {
 
 
   // Search for players
-  const players = await api.nba.getPlayers({
-    search: "James",
-  });
+  const players = await api.nba.getPlayers();
 
 
-  console.log("This is my players log:",players.data);
-  return <></>;
+  console.log("This is my players log:",players);
+  return <>
+    <h1>NBA Players</h1>
+    <div>
+      {players.data.map((player) => (
+        <div key={player.id}>
+
+          <p>{player.first_name} {player.last_name}</p>
+        </div>
+      )
+      
+      )}
+    </div>
+  </>;
 }

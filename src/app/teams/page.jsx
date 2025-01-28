@@ -10,14 +10,18 @@ export default async function Teams() {
 
   console.log("This is my teams log:", teams);
   return (
-    <Link href={`/teams/${teams.id}`}>
-      <div>
+    
+      <div >
         {teams.data.map((team) => (
-          <div key={team.id}>
+            
+          <div key={team.id} >
+            <Link href={`/teams/${team.id}`}>
             {team.id <= 30 ? <p>{team.full_name}</p> : <p></p>}
+            </Link>
           </div>
+          
         ))}
       </div>
-    </Link>
+    
   );
 }
