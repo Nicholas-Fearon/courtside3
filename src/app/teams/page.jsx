@@ -16,7 +16,7 @@ export default async function Teams() {
             
           <div key={team.id} >
             <Link href={`/teams/${team.id}`}>
-            {team.id <= 30 ? <p>{team.full_name}</p> : <p></p>}
+            {team.id <= 30 && <p>{team.full_name}</p>}
             </Link>
           </div>
           
