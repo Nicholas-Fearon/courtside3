@@ -1,4 +1,5 @@
 import { BalldontlieAPI } from "@balldontlie/sdk";
+import Link from "next/link";
 
 export default async function Players() {
   const api = new BalldontlieAPI({
@@ -15,10 +16,13 @@ export default async function Players() {
     <h1>NBA Players</h1>
     <div>
       {players.data.map((player) => (
+        <Link href={`/players/${player.id}`}>
         <div key={player.id}>
 
-          <p>{player.first_name} {player.last_name}</p>
-        </div>
+<p>{player.first_name} {player.last_name}</p>
+</div>
+        </Link>
+        
       )
       
       )}
