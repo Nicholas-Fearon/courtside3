@@ -14,6 +14,7 @@ export default async function SinglePlayer({ params }) {
       <h1>
         {player.data.first_name} {player.data.last_name}
       </h1>
+      <div key={player.id}>
       <p>Team: {player.data.team.full_name}</p>
       <p>Position: {player.data.position}</p>
       <p>Height: {player.data.height}</p>
@@ -27,7 +28,7 @@ export default async function SinglePlayer({ params }) {
       
 
 
-
+      </div>
 
 
 

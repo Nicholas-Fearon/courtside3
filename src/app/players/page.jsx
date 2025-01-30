@@ -13,17 +13,16 @@ export default async function Players() {
   return (
     <>
       <h1>NBA Players</h1>
-      
-        {players.data.map((player) => (
-          <Link href={`/players/${player.id}`}>
-            <div key={player.id}>
-              <p>
-                {player.first_name} {player.last_name}
-              </p>
-            </div>
-          </Link>
-        ))}
-      
+
+      {players.data.map((player) => (
+        <Link href={`/players/${player.id}`}>
+          <div key={player.id}>
+            <p>
+              {player.first_name} {player.last_name}
+            </p>
+          </div>
+        </Link>
+      ))}
     </>
   );
 }
