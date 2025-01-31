@@ -8,9 +8,20 @@ export default async function SingleTeam({ params }) {
 
   const id = (await params).id;
   const team = await api.nba.getTeam(id);
-
+  const teamAbbr = team.data.abbreviation;
   console.log("This is my id log:", id);
   console.log("This is my team log", team);
+
+  const formatAbbreviation = (abbr) => {
+    const abbreviationMap = {
+      NOP: "NO",
+      UTA: "UTH",
+    };
+    return abbreviationMap[abbr] || abbr; // Return mapped value or original abbreviation
+  };
+
+  const getTeamLogo = (abbreviation) =>
+    `https://a.espncdn.com/i/teamlogos/nba/500/${abbreviation}.png`;
 
   return (
     <main className="min-h-screen flex flex-col items-center justify-center bg-gray-100 py-10 px-4">
@@ -18,11 +29,11 @@ export default async function SingleTeam({ params }) {
         {/* Team Logo */}
         <div className="flex justify-center mb-4">
           <Image
-            src={`https://a.espncdn.com/i/teamlogos/nba/500/${team.data.abbreviation.toLowerCase()}.png`}
-            alt={`${team.data.full_name} Logo`}
-            width={120}
-            height={120}
-            className="rounded-md"
+            src={getTeamLogo(formatAbbreviation(teamAbbr))}
+            width={80}
+            height={80}
+            alt={`${team.full_name} logo`}
+            className="w-20 h-20 mb-4 object-contain"
           />
         </div>
 
@@ -32,10 +43,12 @@ export default async function SingleTeam({ params }) {
         </h1>
         <div className="mt-4 space-y-2 text-center">
           <p className="text-gray-600">
-            <span className="font-semibold">Conference:</span> {team.data.conference}
+            <span className="font-semibold">Conference:</span>{" "}
+            {team.data.conference}
           </p>
           <p className="text-gray-600">
-            <span className="font-semibold">Division:</span> {team.data.division}
+            <span className="font-semibold">Division:</span>{" "}
+            {team.data.division}
           </p>
           <p className="text-gray-600">
             <span className="font-semibold">City:</span> {team.data.city}
