@@ -1,12 +1,23 @@
 import { BalldontlieAPI } from "@balldontlie/sdk";
 import Link from "next/link";
-
+import Image from "next/image";
 export default async function Teams() {
   const api = new BalldontlieAPI({
-    apiKey: "b7d5cd00-820e-4af3-9729-e12084bb6f29",
+    apiKey: process.env.NEXT_PUBLIC_BALLDONTLIE_API_KEY,
   });
 
   const teams = await api.nba.getTeams();
+
+  const formatAbbreviation = (abbr) => {
+    const abbreviationMap = {
+      NOP: "NO",
+      UTA: "UTH",
+    };
+    return abbreviationMap[abbr] || abbr; // Return mapped value or original abbreviation
+  };
+
+  const getTeamLogo = (abbreviation) =>
+    `https://a.espncdn.com/i/teamlogos/nba/500/${abbreviation}.png`;
 
   console.log("This is my teams log:", teams);
   return (
@@ -22,8 +33,10 @@ export default async function Teams() {
               <Link key={team.id} href={`/teams/${team.id}`}>
                 <div className="bg-white shadow-md rounded-lg p-6 border border-gray-200 hover:bg-gray-50 transition duration-300 cursor-pointer flex flex-col items-center">
                   {/* Team Logo */}
-                  <img
-                    src={`https://a.espncdn.com/i/teamlogos/nba/500/${team.abbreviation}.png`}
+                  <Image
+                    src={getTeamLogo(formatAbbreviation(team.abbreviation))}
+                    width={80}
+                    height={80}
                     alt={`${team.full_name} logo`}
                     className="w-20 h-20 mb-4 object-contain"
                   />

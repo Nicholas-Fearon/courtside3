@@ -3,7 +3,7 @@ import { BalldontlieAPI } from "@balldontlie/sdk";
 
 export default async function Home() {
   const api = new BalldontlieAPI({
-    apiKey: "b7d5cd00-820e-4af3-9729-e12084bb6f29",
+    apiKey: process.env.NEXT_PUBLIC_BALLDONTLIE_API_KEY,
   });
 
   const date = new Date();
@@ -17,11 +17,20 @@ export default async function Home() {
   const previousGames = await api.nba.getGames({ dates: [yesterday] });
 
   const todaysGames = games.data.filter((game) => game.date === todaysDate);
-  const lastNightsGames = previousGames.data.filter((game) => game.date === yesterday);
+  const lastNightsGames = previousGames.data.filter(
+    (game) => game.date === yesterday
+  );
+
+  const formatAbbreviation = (abbr) => {
+    const abbreviationMap = {
+      NOP: "NO",
+      UTA: "UTH"
+    };
+    return abbreviationMap[abbr] || abbr; // Return mapped value or original abbreviation
+  };
 
   const getTeamLogo = (abbreviation) =>
     `https://a.espncdn.com/i/teamlogos/nba/500/${abbreviation}.png`;
-  
 
   return (
     <main className="min-h-screen bg-gray-100 py-8 px-4">
@@ -34,32 +43,43 @@ export default async function Home() {
           <div className="space-y-6">
             {todaysGames.length > 0 ? (
               todaysGames.map((game) => (
-                <div key={game.id} className="bg-white shadow-md rounded-lg p-6 border border-gray-200">
+                <div
+                  key={game.id}
+                  className="bg-white shadow-md rounded-lg p-6 border border-gray-200"
+                >
                   <div className="flex items-center justify-between">
                     {/* Home Team */}
                     <div className="text-center">
-                      <Image
-                        src={getTeamLogo(game.home_team.abbreviation)}
+                    <Image
+                        src={getTeamLogo(
+                          formatAbbreviation(game.home_team.abbreviation)
+                        )}
                         width={80}
                         height={80}
-                        alt={game.home_team.full_name}
+                        alt={game.visitor_team.full_name}
                         className="mx-auto"
                       />
-                      <h2 className="text-lg font-bold text-gray-700 mt-2">{game.home_team.full_name}</h2>
+                      <h2 className="text-lg font-bold text-gray-700 mt-2">
+                        {game.home_team.full_name}
+                      </h2>
                     </div>
 
                     <span className="text-xl font-bold">VS</span>
 
                     {/* Visitor Team */}
                     <div className="text-center">
-                      <Image
-                        src={getTeamLogo(game.visitor_team.abbreviation)}
+                    <Image
+                        src={getTeamLogo(
+                          formatAbbreviation(game.visitor_team.abbreviation)
+                        )}
                         width={80}
                         height={80}
                         alt={game.visitor_team.full_name}
                         className="mx-auto"
                       />
-                      <h2 className="text-lg font-bold text-gray-700 mt-2">{game.visitor_team.full_name}</h2>
+                      <h2 className="text-lg font-bold text-gray-700 mt-2">
+                        {game.visitor_team.full_name}
+                      </h2>
                     </div>
                   </div>
 
@@ -69,14 +89,17 @@ export default async function Home() {
                       <strong>Visitor Score:</strong> {game.visitor_team_score}
                     </p>
                     <p className="text-gray-600">
-                      <strong>Game Time:</strong> {game.status.slice(11, 16)}
+                      <strong>Game Time: </strong> {game.status.slice(11, 16)}{" "}
+                      (GMT)
                     </p>
                   </div>
                 </div>
               ))
             ) : (
               <div className="bg-white shadow-md rounded-lg p-6 border border-gray-200">
-                <p className="text-center text-gray-600 text-lg">No games happening today.</p>
+                <p className="text-center text-gray-600 text-lg">
+                  No games happening today.
+                </p>
               </div>
             )}
           </div>
@@ -90,20 +113,26 @@ export default async function Home() {
           <div className="space-y-6">
             {lastNightsGames.length > 0 ? (
               lastNightsGames.map((game) => (
-                
-                <div key={game.id} className="bg-white shadow-md rounded-lg p-6 border border-gray-200">
+                <div
+                  key={game.id}
+                  className="bg-white shadow-md rounded-lg p-6 border border-gray-200"
+                >
                   <div className="flex items-center justify-between">
                     {/* Home Team */}
                     <div className="text-center">
-                      <Image
-                        src={getTeamLogo(game.home_team.abbreviation)}
+                    <Image
+                        src={getTeamLogo(
+                          formatAbbreviation(game.home_team.abbreviation)
+                        )}
                         width={80}
                         height={80}
-                        alt={game.home_team.full_name}
+                        alt={game.visitor_team.full_name}
                         className="mx-auto"
                       />
-                      
-                      <h2 className="text-lg font-bold text-gray-700 mt-2">{game.home_team.full_name}</h2>
+
+                      <h2 className="text-lg font-bold text-gray-700 mt-2">
+                        {game.home_team.full_name}
+                      </h2>
                     </div>
 
                     <span className="text-xl font-bold">VS</span>
@@ -111,13 +140,17 @@ export default async function Home() {
                     {/* Visitor Team */}
                     <div className="text-center">
                       <Image
-                        src={getTeamLogo(game.visitor_team.abbreviation)}
+                        src={getTeamLogo(
+                          formatAbbreviation(game.visitor_team.abbreviation)
+                        )}
                         width={80}
                         height={80}
                         alt={game.visitor_team.full_name}
                         className="mx-auto"
                       />
-                      <h2 className="text-lg font-bold text-gray-700 mt-2">{game.visitor_team.full_name}</h2>
+                      <h2 className="text-lg font-bold text-gray-700 mt-2">
+                        {game.visitor_team.full_name}
+                      </h2>
                     </div>
                   </div>
 
@@ -127,14 +160,16 @@ export default async function Home() {
                       <strong>Visitor Score:</strong> {game.visitor_team_score}
                     </p>
                     <p className="text-gray-600">
-                      <strong>Game Time:</strong> {game.status.slice(11, 16)}
+                      <strong></strong> {game.status}
                     </p>
                   </div>
                 </div>
               ))
             ) : (
               <div className="bg-white shadow-md rounded-lg p-6 border border-gray-200">
-                <p className="text-center text-gray-600 text-lg">No games played last night.</p>
+                <p className="text-center text-gray-600 text-lg">
+                  No games played last night.
+                </p>
               </div>
             )}
           </div>
