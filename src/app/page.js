@@ -11,7 +11,11 @@ export default async function Home() {
   const month = (date.getMonth() + 1).toString().padStart(2, "0");
   const year = date.getFullYear();
   const todaysDate = `${year}-${month}-${today}`;
-  const yesterday = `${year}-${month}-${today - 1}`;
+  const yesterdayDate = new Date();
+yesterdayDate.setDate(date.getDate() - 1);
+const yesterday = `${yesterdayDate.getFullYear()}-${(yesterdayDate.getMonth() + 1)
+  .toString()
+  .padStart(2, "0")}-${yesterdayDate.getDate().toString().padStart(2, "0")}`;
 
   const games = await api.nba.getGames({ dates: [todaysDate] });
   const previousGames = await api.nba.getGames({ dates: [yesterday] });
@@ -56,7 +60,7 @@ export default async function Home() {
                         )}
                         width={80}
                         height={80}
-                        alt={game.visitor_team.full_name}
+                        alt={game.home_team.full_name}
                         className="mx-auto"
                       />
                       <h2 className="text-lg font-bold text-gray-700 mt-2">
