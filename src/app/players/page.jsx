@@ -1,15 +1,17 @@
 import { BalldontlieAPI } from "@balldontlie/sdk";
 import Link from "next/link";
 
-export default async function Players() {
+export default async function Players({ searchParams }) {
   const api = new BalldontlieAPI({
     apiKey: process.env.NEXT_PUBLIC_BALLDONTLIE_API_KEY,
   });
 
-  // Fetch players
-  const players = await api.nba.getPlayers();
+  const cursor = await searchParams?.cursor ? searchParams.cursor.toString() : undefined; // Ensure cursor is a string or undefined
 
-  console.log("This is my players log:", players);
+  const players = await api.nba.getPlayers({
+    per_page: 25,
+    ...(cursor && { cursor }) // Only add cursor if it exists
+  });
 
   return (
     <main className="min-h-screen bg-gray-100 py-10 px-4">
@@ -27,6 +29,18 @@ export default async function Players() {
               </div>
             </Link>
           ))}
+        </div>
+
+        {/* Pagination */}
+        <div className="flex justify-center mt-6 space-x-4">
+          {players.meta.next_cursor && (
+            <Link
+              href={`?cursor=${players.meta.next_cursor}`}
+              className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
+            >
+              Next
+            </Link>
+          )}
         </div>
       </div>
     </main>
