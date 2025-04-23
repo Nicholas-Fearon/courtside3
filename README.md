@@ -1,10 +1,5 @@
 # Courtside3 🏀
 
-![Next.js](https://img.shields.io/badge/Next.js-000?logo=next.js&logoColor=white)
-![TailwindCSS](https://img.shields.io/badge/TailwindCSS-38B2AC?logo=tailwindcss&logoColor=white)
-![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?logo=supabase&logoColor=white)
-![License](https://img.shields.io/github/license/yourusername/courtside3)
-
 **Courtside3** is a basketball league web app built with Next.js and Tailwind CSS. Users can explore player data, team rosters, and stay up to date with today’s and last night’s NBA games.
 
 ---
