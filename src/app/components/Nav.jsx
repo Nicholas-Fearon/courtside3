@@ -1,57 +1,59 @@
 import Link from "next/link";
+import {
+  SignInButton,
+  SignUpButton,
+  SignedIn,
+  SignedOut,
+  UserButton,
+} from '@clerk/nextjs';
 
 export default function Nav() {
   return (
-    <nav className="bg-black text-white py-4">
-      <div className="container mx-auto px-4 flex justify-between items-center">
-        {/* Logo or App Name */}
-        <h1 className="text-2xl font-bold">
-          <Link href="/">Courtside 3</Link>
-        </h1>
+    <nav className="bg-black text-white shadow-md">
+      <div className="w-full max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+        {/* Logo */}
+        <Link href="/" className="text-2xl font-bold tracking-tight hover:text-gray-300 transition">
+          Courtside 3
+        </Link>
 
         {/* Navigation Links */}
-        <ul className="flex space-x-6">
-          <li>
-            <Link
-              href="/"
-              className="text-lg font-semibold hover:text-gray-400 transition-colors"
-            >
-              Home
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="/teams"
-              className="text-lg font-semibold hover:text-gray-400 transition-colors"
-            >
-              Teams
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="/players"
-              className="text-lg font-semibold hover:text-gray-400 transition-colors"
-            >
-              Players
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="/about"
-              className="text-lg font-semibold hover:text-gray-400 transition-colors"
-            >
-              About
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="/contact"
-              className="text-lg font-semibold hover:text-gray-400 transition-colors"
-            >
-              Contact
-            </Link>
-          </li>
+        <ul className="hidden md:flex items-center space-x-8">
+          {[
+            { href: "/", label: "Home" },
+            { href: "/teams", label: "Teams" },
+            { href: "/players", label: "Players" },
+            { href: "/about", label: "About" },
+            { href: "/contact", label: "Contact" },
+          ].map((link) => (
+            <li key={link.href}>
+              <Link
+                href={link.href}
+                className="text-lg font-medium hover:text-gray-400 transition-colors"
+              >
+                {link.label}
+              </Link>
+            </li>
+          ))}
         </ul>
+
+        {/* Auth Buttons */}
+        <div className="flex items-center space-x-4">
+          <SignedOut>
+            <SignInButton mode="modal">
+              <button className="bg-white text-black font-semibold px-4 py-1.5 rounded-md hover:bg-gray-200 transition">
+                Sign In
+              </button>
+            </SignInButton>
+            <SignUpButton mode="modal">
+              <button className="bg-blue-600 text-white font-semibold px-4 py-1.5 rounded-md hover:bg-blue-700 transition">
+                Sign Up
+              </button>
+            </SignUpButton>
+          </SignedOut>
+          <SignedIn>
+            <UserButton afterSignOutUrl="/" />
+          </SignedIn>
+        </div>
       </div>
     </nav>
   );
