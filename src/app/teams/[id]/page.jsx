@@ -1,6 +1,24 @@
 import { BalldontlieAPI } from "@balldontlie/sdk";
 import Image from "next/image";
 
+async function fetchAllPlayers(api) {
+  let players = [];
+  let page = 1;
+  let perPage = 100;
+  let totalPages = 1;
+
+  while (page <= totalPages) {
+    const res = await api.nba.getPlayers({ page, per_page: perPage });
+
+    players = players.concat(res.data);
+
+    totalPages = res.meta.total_pages;
+    page++;
+  }
+
+  return players;
+}
+
 export default async function SingleTeam({ params }) {
   const api = new BalldontlieAPI({
     apiKey: process.env.NEXT_PUBLIC_BALLDONTLIE_API_KEY,
@@ -9,15 +27,17 @@ export default async function SingleTeam({ params }) {
   const id = (await params).id;
   const team = await api.nba.getTeam(id);
   const teamAbbr = team.data.abbreviation;
-  console.log("This is my id log:", id);
-  console.log("This is my team log", team);
+
+  // Fetch all players
+  const allPlayers = await fetchAllPlayers(api);
+  const teamPlayers = allPlayers.filter(player => player.team.id === team.data.id);
 
   const formatAbbreviation = (abbr) => {
     const abbreviationMap = {
       NOP: "NO",
       UTA: "UTH",
     };
-    return abbreviationMap[abbr] || abbr; // Return mapped value or original abbreviation
+    return abbreviationMap[abbr] || abbr;
   };
 
   const getTeamLogo = (abbreviation) =>
@@ -26,7 +46,6 @@ export default async function SingleTeam({ params }) {
   return (
     <main className="min-h-screen flex flex-col items-center justify-center bg-gray-100 py-10 px-4">
       <div className="max-w-2xl w-full bg-white shadow-lg rounded-lg p-6 border border-gray-200">
-        {/* Team Logo */}
         <div className="flex justify-center mb-4">
           <Image
             src={getTeamLogo(formatAbbreviation(teamAbbr))}
@@ -37,7 +56,6 @@ export default async function SingleTeam({ params }) {
           />
         </div>
 
-        {/* Team Info */}
         <h1 className="text-3xl font-bold text-center text-gray-800">
           {team.data.full_name}
         </h1>
@@ -54,6 +72,18 @@ export default async function SingleTeam({ params }) {
             <span className="font-semibold">City:</span> {team.data.city}
           </p>
         </div>
+
+        <h2 className="text-xl font-semibold mt-6 mb-2">Roster</h2>
+        {teamPlayers.length === 0 ? (
+          <p>No players found for this team.</p>
+        ) : (
+          teamPlayers.map((player) => (
+            
+            <p key={player.id}>
+              {player.first_name} {player.last_name}
+            </p>
+          ))
+        )}
       </div>
     </main>
   );
