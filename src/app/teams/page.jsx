@@ -3,7 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 export default async function Teams() {
   const api = new BalldontlieAPI({
-    apiKey: process.env.NEXT_PUBLIC_BALLDONTLIE_API_KEY,
+    apiKey: process.env.NEXT_PUBLIC_BALLDONTLIE_API,
   });
 
   const teams = await api.nba.getTeams();

@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default async function Players({ searchParams }) {
   const api = new BalldontlieAPI({
-    apiKey: process.env.NEXT_PUBLIC_BALLDONTLIE_API_KEY,
+    apiKey: process.env.NEXT_PUBLIC_BALLDONTLIE_API,
   });
 
   const cursor = (await searchParams?.cursor)

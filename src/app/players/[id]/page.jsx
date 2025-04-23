@@ -2,7 +2,7 @@ import { BalldontlieAPI } from "@balldontlie/sdk";
 
 export default async function SinglePlayer({ params }) {
   const api = new BalldontlieAPI({
-    apiKey: process.env.NEXT_PUBLIC_BALLDONTLIE_API_KEY,
+    apiKey: process.env.NEXT_PUBLIC_BALLDONTLIE_API,
   });
 
   const id = (await params).id;
