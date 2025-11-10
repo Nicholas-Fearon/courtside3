@@ -50,7 +50,6 @@ export default function Nav() {
         >
           {menuOpen ? <X size={28} /> : <Menu size={28} />}
         </button>
-
         {/* Auth Buttons */}
         <div className="hidden md:flex items-center space-x-4">
           <SignedOut>

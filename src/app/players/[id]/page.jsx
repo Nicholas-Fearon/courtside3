@@ -10,7 +10,7 @@ export default async function SinglePlayer({ params }) {
 
   console.log("This is my single player log:", id);
   console.log("This is my player log:", player);
-
+a
   return (
     <main className="min-h-screen bg-white text-black py-10 px-4 flex justify-center items-center">
       <div className="max-w-3xl w-full bg-white text-black shadow-lg rounded-xl p-8 border border-gray-300">
