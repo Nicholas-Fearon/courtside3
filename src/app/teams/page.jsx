@@ -1,4 +1,4 @@
-import { BalldontlieAPI } from "@balldontlie/sdk";
+/*import { BalldontlieAPI } from "@balldontlie/sdk";
 import Link from "next/link";
 import Image from "next/image";
 export default async function Teams() {
@@ -32,7 +32,7 @@ export default async function Teams() {
             .map((team) => (
               <Link key={team.id} href={`/teams/${team.id}`}>
                 <div className="bg-white shadow-md rounded-lg p-6 border border-gray-200 hover:bg-gray-50 transition duration-300 cursor-pointer flex flex-col items-center">
-                  {/* Team Logo */}
+                  {//Team Logo}
                   <Image
                     src={getTeamLogo(formatAbbreviation(team.abbreviation))}
                     width={80}
@@ -40,7 +40,7 @@ export default async function Teams() {
                     alt={`${team.full_name} logo`}
                     className="w-20 h-20 mb-4 object-contain"
                   />
-                  {/* Team Name */}
+                  {/* Team Name}
                   <p className="text-lg font-semibold text-gray-700 text-center">
                     {team.full_name}
                   </p>
@@ -52,3 +52,4 @@ export default async function Teams() {
     </main>
   );
 }
+*/
