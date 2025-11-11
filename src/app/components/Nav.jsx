@@ -50,8 +50,8 @@ export default function Nav() {
         >
           {menuOpen ? <X size={28} /> : <Menu size={28} />}
         </button>
-        {/* Auth Buttons */}
-        <div className="hidden md:flex items-center space-x-4">
+        
+       {/* <div className="hidden md:flex items-center space-x-4">
           <SignedOut>
             <SignInButton mode="modal">
               <button className="bg-white text-black font-semibold px-4 py-1.5 rounded-md hover:bg-gray-200 transition">
@@ -67,11 +67,11 @@ export default function Nav() {
           <SignedIn>
             <UserButton afterSignOutUrl="/" />
           </SignedIn>
-        </div>
+        </div> */}
       </div>
 
       {/* Mobile Menu */}
-      {menuOpen && (
+      {/*{menuOpen && (
         <div className="md:hidden px-6 pb-4">
           <ul className="space-y-4">
             {navLinks.map((link) => (
@@ -85,10 +85,10 @@ export default function Nav() {
                 </Link>
               </li>
             ))}
-          </ul>
+          </ul>*/}
 
           {/* Mobile Auth Buttons */}
-          <div className="mt-6 space-y-3">
+          {/* <div className="mt-6 space-y-3">
             <SignedOut>
               <SignInButton mode="modal">
                 <button className="w-full bg-white text-black font-semibold px-4 py-2 rounded-md hover:bg-gray-200 transition">
@@ -104,9 +104,9 @@ export default function Nav() {
             <SignedIn>
               <UserButton afterSignOutUrl="/" />
             </SignedIn>
-          </div>
+          </div> 
         </div>
-      )}
+      )}*/}
     </nav>
   );
 }
