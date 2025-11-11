@@ -1,6 +1,15 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {images: {
-    domains: ["a.espncdn.com"],
-  },};
+const nextConfig = {
+  reactStrictMode: false, // Disabling Strict Mode
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "a.espncdn.com",
+        pathname: "/**",
+      },
+    ],
+  },
+};
 
 export default nextConfig;
