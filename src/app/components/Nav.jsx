@@ -1,4 +1,5 @@
 "use client";
+
 import { useState } from "react";
 import Link from "next/link";
 import {
@@ -15,8 +16,8 @@ export default function Nav() {
 
   const navLinks = [
     { href: "/", label: "Home" },
-    //{ href: "/teams", label: "Teams" },
-    //{ href: "/players", label: "Players" },
+    // { href: "/teams", label: "Teams" },
+    // { href: "/players", label: "Players" },
     { href: "/about", label: "About" },
     { href: "/contact", label: "Contact" },
   ];
@@ -25,7 +26,10 @@ export default function Nav() {
     <nav className="bg-black text-white shadow-md">
       <div className="w-full max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
         {/* Logo */}
-        <Link href="/" className="text-2xl font-bold tracking-tight hover:text-gray-300 transition">
+        <Link
+          href="/"
+          className="text-2xl font-bold tracking-tight hover:text-gray-300 transition"
+        >
           Courtside 3
         </Link>
 
@@ -50,8 +54,9 @@ export default function Nav() {
         >
           {menuOpen ? <X size={28} /> : <Menu size={28} />}
         </button>
-        
-       {/* <div className="hidden md:flex items-center space-x-4">
+
+        {/* Desktop Auth Buttons 
+        <div className="hidden md:flex items-center space-x-4">
           <SignedOut>
             <SignInButton mode="modal">
               <button className="bg-white text-black font-semibold px-4 py-1.5 rounded-md hover:bg-gray-200 transition">
@@ -67,11 +72,12 @@ export default function Nav() {
           <SignedIn>
             <UserButton afterSignOutUrl="/" />
           </SignedIn>
-        </div> */}
+        </div>
+        */}
       </div>
 
       {/* Mobile Menu */}
-      {/*{menuOpen && (
+      {menuOpen && (
         <div className="md:hidden px-6 pb-4">
           <ul className="space-y-4">
             {navLinks.map((link) => (
@@ -85,10 +91,10 @@ export default function Nav() {
                 </Link>
               </li>
             ))}
-          </ul>*/}
+          </ul>
 
-          {/* Mobile Auth Buttons */}
-          {/* <div className="mt-6 space-y-3">
+          {/* Mobile Auth Buttons 
+          <div className="mt-6 space-y-3">
             <SignedOut>
               <SignInButton mode="modal">
                 <button className="w-full bg-white text-black font-semibold px-4 py-2 rounded-md hover:bg-gray-200 transition">
@@ -104,9 +110,10 @@ export default function Nav() {
             <SignedIn>
               <UserButton afterSignOutUrl="/" />
             </SignedIn>
-          </div> 
+          </div>
+          */}
         </div>
-      )}*/}
+      )}
     </nav>
   );
 }
