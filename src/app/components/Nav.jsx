@@ -15,8 +15,8 @@ export default function Nav() {
 
   const navLinks = [
     { href: "/", label: "Home" },
-    { href: "/teams", label: "Teams" },
-    { href: "/players", label: "Players" },
+    //{ href: "/teams", label: "Teams" },
+    //{ href: "/players", label: "Players" },
     { href: "/about", label: "About" },
     { href: "/contact", label: "Contact" },
   ];
