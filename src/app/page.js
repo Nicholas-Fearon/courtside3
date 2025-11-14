@@ -12,10 +12,12 @@ export default async function Home() {
   const year = date.getFullYear();
   const todaysDate = `${year}-${month}-${today}`;
   const yesterdayDate = new Date();
-yesterdayDate.setDate(date.getDate() - 1);
-const yesterday = `${yesterdayDate.getFullYear()}-${(yesterdayDate.getMonth() + 1)
-  .toString()
-  .padStart(2, "0")}-${yesterdayDate.getDate().toString().padStart(2, "0")}`;
+  yesterdayDate.setDate(date.getDate() - 1);
+  const yesterday = `${yesterdayDate.getFullYear()}-${(
+    yesterdayDate.getMonth() + 1
+  )
+    .toString()
+    .padStart(2, "0")}-${yesterdayDate.getDate().toString().padStart(2, "0")}`;
 
   const games = await api.nba.getGames({ dates: [todaysDate] });
   const previousGames = await api.nba.getGames({ dates: [yesterday] });
@@ -28,7 +30,7 @@ const yesterday = `${yesterdayDate.getFullYear()}-${(yesterdayDate.getMonth() + 
   const formatAbbreviation = (abbr) => {
     const abbreviationMap = {
       NOP: "NO",
-      UTA: "UTH"
+      UTA: "UTH",
     };
     return abbreviationMap[abbr] || abbr; // Return mapped value or original abbreviation
   };
@@ -54,7 +56,7 @@ const yesterday = `${yesterdayDate.getFullYear()}-${(yesterdayDate.getMonth() + 
                   <div className="flex items-center justify-between">
                     {/* Home Team */}
                     <div className="text-center">
-                    <Image
+                      <Image
                         src={getTeamLogo(
                           formatAbbreviation(game.home_team.abbreviation)
                         )}
@@ -72,7 +74,7 @@ const yesterday = `${yesterdayDate.getFullYear()}-${(yesterdayDate.getMonth() + 
 
                     {/* Visitor Team */}
                     <div className="text-center">
-                    <Image
+                      <Image
                         src={getTeamLogo(
                           formatAbbreviation(game.visitor_team.abbreviation)
                         )}
@@ -124,7 +126,7 @@ const yesterday = `${yesterdayDate.getFullYear()}-${(yesterdayDate.getMonth() + 
                   <div className="flex items-center justify-between">
                     {/* Home Team */}
                     <div className="text-center">
-                    <Image
+                      <Image
                         src={getTeamLogo(
                           formatAbbreviation(game.home_team.abbreviation)
                         )}
